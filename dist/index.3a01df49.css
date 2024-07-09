@@ -64,7 +64,7 @@ body {
   justify-content: center;
   align-items: center;
   margin-block: 20px;
-  display: none;
+  display: flex;
 }
 
 .weather-body img {
