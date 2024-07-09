@@ -16,7 +16,7 @@ body {
 }
 
 .container {
-  width: 400px;
+  /* width: 400px; */
   height: min-content;
   background-color: #fff;
   border-radius: 12px;
@@ -144,4 +144,34 @@ body {
 }
 .location-not-found img {
   width: 80%;
+}
+
+.forecast-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+#fivedays {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.forecast {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 10px;
+  width: 100%;
+}
+
+.forecast-block {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 150px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-align: center;
+  padding: 10px;
+  background-color: #f9f9f9;
 }

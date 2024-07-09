@@ -615,7 +615,43 @@ async function getWeather(cityName) {
 }
 searchBtn.addEventListener("click", ()=>{
     getWeather(inputBox.value);
-}); // async function display(cityData) {
+    getForecast(inputBox.value);
+});
+async function getForecast(cityName) {
+    try {
+        const response = await (0, _axiosDefault.default).get(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${api_key}&units=metric`);
+        if (response.status !== 200) throw new Error("City not found!");
+        const cityForecastData = response.data;
+        console.log("cityForecastData", cityForecastData);
+        displayForecast(cityForecastData);
+    } catch (error) {
+        console.error(error);
+    }
+}
+function displayForecast(cityForecastData) {
+    const foreCastHead = document.getElementById("fivedays");
+    const forcast = document.getElementById("forcast");
+    foreCastHead.innerHTML = "<h2>5-Day Forecast</h2>";
+    let forecastHtml = "";
+    console.log(cityForecastData.list);
+    cityForecastData.list.forEach((foreCast, index)=>{
+        if (index % 8 === 0) {
+            const minTemp = Math.min(...cityForecastData.list.slice(index, index + 8).map((item)=>item.main.temp_min));
+            const maxTemp = Math.max(...cityForecastData.list.slice(index, index + 8).map((item)=>item.main.temp_max));
+            forecastHtml += `
+              <div class="forecast-block">
+                  <p> ${new Date(foreCast.dt_txt).toLocaleDateString()}</p>
+                  <p> ${minTemp.toFixed(1)}\xb0C - ${maxTemp.toFixed(1)}\xb0C</p>
+                  <img src="http://openweathermap.org/img/wn/${foreCast.weather[0].icon}.png" alt="Weather icon">
+
+              </div>
+          `;
+        }
+    });
+    // const forcast = document.getElementById("forcast");
+    // forcast.innerHTML += forecastHtml;
+    forcast.innerHTML = forecastHtml;
+} // async function display(cityData) {
  //   temperature.innerHTML = `${cityData.main.temp}`;
  //   //description.innerHTML;
  // }
